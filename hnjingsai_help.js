@@ -5,7 +5,7 @@
 // @description  对照本地/远程题库，自动匹配并勾选【单选】与【多选】题；更强规范化与模糊匹配，尽量避免改题库；修复多选仅勾选最后一个的问题（逐点原生 click + 延时）；统计未命中/不一致并提供调试工具。
 // @author       GuZhi_223 & ChatGPT
 // @match        *://*/*
-// @grant        GM_geValue
+// @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        GM_registerMenuCommand
 // @grant        GM_xmlhttpRequest
@@ -18,7 +18,7 @@
   /** ================= 偏好设置（可在菜单里动态修改） ================= */
   const PREFS = {
     autoAnswer: GM_getValue("autoAnswer", true),
-    fuzzyThreshold: Number(GM_getValue("fuzzyThreshold", 0.95)), //  可调
+    fuzzyThreshold: Number(GM_getValue("fuzzyThreshold", 0.9)), //  可调
     bankURL: GM_getValue("qaBankURL", ""),
   };
 
@@ -163,7 +163,7 @@
 
   GM_registerMenuCommand("设置题库 URL", () => {
     const cur = PREFS.bankURL;
-    const url = prompt("填写题库 JSON 的直链 URL：", cur || "");
+    const url = prompt("填写题库 JSON 的直链 URL：", cur || "https://od.lk/d/NjNfODI1MDQ2NDNf/%E9%A2%98%E5%BA%93.json");
     if (url != null) {
       PREFS.bankURL = url.trim();
       GM_setValue("qaBankURL", PREFS.bankURL);
